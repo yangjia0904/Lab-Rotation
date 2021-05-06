@@ -59,10 +59,10 @@ def simulation_count_ibd_rate(arg1,arg2,arg3,arg4,id1,id2,ibd_length,path_of_ibd
     """
     os.chdir(path_of_ibd)
     # First simulate enough samples according to the parametres
-    cmd='java -jar ARGON.0.1.jar -pop '+str(arg1)+' '+str(arg2)+' -N '+str(arg3)+' -seq 0.0 -size '+str(arg4)+' -IBD '+str(ibd_length)+' -quiet '+str(path_of_file_folder)
+    cmd='java -jar ARGON.0.1.jar -pop '+str(arg1)+' '+str(arg2)+' -N '+str(arg3)+' -seq 0.0 -size '+str(arg4)+' -IBD '+str(ibd_length)+' -quiet -out '+str(path_of_file_folder)
     lines=[]
     # Monte Carlo method estimate the Mean
-    for i in range(5000):
+    for i in range(10000):
         tempCmd=cmd
         os.system(tempCmd)
         # read the idb result file ***.ibd
@@ -85,7 +85,7 @@ def simulation_count_ibd_rate(arg1,arg2,arg3,arg4,id1,id2,ibd_length,path_of_ibd
 dict={}
 
 
-# #s1
+# #s1 [0.0435, 0.0008, 0.0]
 # res=simulation(1,"2","1000",10,"1","2")
 # # wrtie the samples into into the files
 # f=open("testResult\\results1.txt","w")
@@ -131,9 +131,11 @@ dict={}
 
 thred=[0.01,0.001,0.0001]
 #s1
-# s1_result=[]
-# for item in thred:
-#     s1_result.append(simulation_count_ibd_rate(1,"2","1000",10,"1","2",ibd_length=item))
+s1_result=[]
+for item in thred:
+    s1_result.append(simulation_count_ibd_rate(1,"2","2000",10,"1","2",ibd_length=item,
+    path_of_ibd="E://USC//genome-0.2-Windows//genome-0.2-Windows",path_of_file_folder="E://USC远程科研//genome-0.2-Windows//genome-0.2-Windows//testResult//test",
+    path_of_file="E://USC//genome-0.2-Windows//genome-0.2-Windows//testResult//test.ibd"))
 
 
 # #s2 2 0
@@ -141,22 +143,22 @@ thred=[0.01,0.001,0.0001]
 # for item in thred:
 #     s220_result.append(simulation_count_ibd_rate(2,"2 2","pop.txt",10,"1","2",ibd_length=item))
 
-#s2 1 1
-s211_result=[]
-for item in thred:
-    s211_result.append(simulation_count_ibd_rate(2,"2 2","pop.txt",10,"2","3",ibd_length=item))
+# #s2 1 1
+# s211_result=[]
+# for item in thred:
+#     s211_result.append(simulation_count_ibd_rate(2,"2 2","pop.txt",10,"2","3",ibd_length=item))
 
 
-# # s3
+# # # s3
 # s3_result=[]
 # for item in thred:
 #     s3_result.append(simulation_count_ibd_rate(2,"2 2","pop2.txt",10,"1","2",ibd_length=item))
 
 
-# s4
-s4_result=[]
-for item in thred:
-    s4_result.append(simulation_count_ibd_rate(2,"2 2","pop2.txt",10,"2","3",ibd_length=item))
+# # s4
+# s4_result=[]
+# for item in thred:
+#     s4_result.append(simulation_count_ibd_rate(2,"2 2","pop2.txt",10,"2","3",ibd_length=item))
 
-print(s4_result)
+print(s1_result)
 
